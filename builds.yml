@@ -6,7 +6,6 @@ ruby:
 jruby:
 - 9.0.0.0.pre1+ruby-2.2.0
 python:
-- 3.3.6
 - 3.4.2
 - 3.4.3
 node:
