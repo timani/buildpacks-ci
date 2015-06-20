@@ -8,6 +8,5 @@ python: []
 node: []
 nginx: []
 httpd: []
-php:
-- 5.6.9
+php: []
 
