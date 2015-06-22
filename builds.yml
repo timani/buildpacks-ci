@@ -4,7 +4,6 @@ jruby: []
 python: []
 node: []
 nginx:
-- 1.7.10
 - 1.7.12
 httpd: []
 php: []
