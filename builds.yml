@@ -3,7 +3,13 @@ ruby: []
 jruby: []
 python: []
 node: []
-nginx: []
+nginx:
+- 1.7.10
+- 1.7.10
+- 1.7.10
+- 1.7.11
+- 1.7.11
+- 1.7.12
 httpd: []
 php: []
 
