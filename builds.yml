@@ -7,7 +7,7 @@ jruby:
 python: []
 node: []
 nginx:
-- 1.7.19
+- 1.7.10
 httpd: []
 php: []
 
