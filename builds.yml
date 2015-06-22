@@ -5,8 +5,7 @@ jruby:
 - 9.0.0.0.pre1+ruby-2.2.0
 python: []
 node: []
-nginx:
-- 1.7.10
+nginx: []
 httpd: []
 php: []
 
