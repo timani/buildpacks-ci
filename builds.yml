@@ -1,8 +1,7 @@
 ---
 ruby:
 - 2.2.2
-jruby:
-- 9.0.0.0.pre1+ruby-2.2.0
+jruby: []
 python: []
 node: []
 nginx: []
