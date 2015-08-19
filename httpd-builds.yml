@@ -1,3 +1,5 @@
 ---
-httpd: []
+httpd:
+  - version: 2.4.10
+    checksum: df1834107e970c0a94b963affa672681
 
