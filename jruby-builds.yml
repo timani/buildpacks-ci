@@ -1,4 +1,5 @@
 ---
 jruby:
-  - 1.7.22_ruby-2.2.0
+  - version: 1.7.22_ruby-2.2.0
+  - checksum: 05c9141f2cfa3b3ab1809c78fc8ded4c0a34445f
 
