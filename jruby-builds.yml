@@ -1,3 +1,5 @@
 ---
-jruby: []
+jruby:
+- version: 1.7.22_ruby-2.2.3
+  checksum: 54cefd7b3895050f227768a05cfef85a
 
