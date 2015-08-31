@@ -1,14 +1,14 @@
 ---
 php:
 - version: 5.6.12
-  checksum: fa57bdd133262a71921653c0f5d3f2e9
+  checksum: 4578dee9d979114610a444bee263ed9b
 - version: 5.6.11
-  checksum: 6740a880c8024dc574c04b5425049976
+  checksum: a0c842c1d30fedbe972e1556ae9cee27
 - version: 5.5.28
-  checksum: 94a6afe05357ad4cda3679402b659a32
+  checksum: 5595dffa11f153e5b5cb8bf57242797e
 - version: 5.5.27
-  checksum: f411ff02b2a6ab11e7d0c3f5183504fc
+  checksum: e105f664450efd87513f5b4a2055e917
 - version: 5.4.44
-  checksum: 9e63dd9b5e1e704012eead489d7c4a0e
+  checksum: 25725eb0dff0d45351b01fb483709b8d
 - version: 5.4.43
-  checksum: b206a33d3fdf14ede35882ee906db81d
+  checksum: eedfa86393db2ae49a163d1f80aa2c19
