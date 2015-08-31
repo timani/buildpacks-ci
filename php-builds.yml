@@ -1,7 +1,5 @@
 ---
 php:
-- version: 5.5.28
-  checksum: 5595dffa11f153e5b5cb8bf57242797e
 - version: 5.5.27
   checksum: e105f664450efd87513f5b4a2055e917
 - version: 5.4.44
