@@ -1,7 +1,5 @@
 ---
 php:
-- version: 5.6.12
-  md5: 4578dee9d979114610a444bee263ed9b
 - version: 5.6.13
   md5: 64d9a82068e3b0bbb16c261261391172
 - version: 5.4.44
