@@ -1,3 +1,14 @@
 ---
-php: []
-
+php:
+- version: 5.5.28
+  md5: 5595dffa11f153e5b5cb8bf57242797e
+- version: 5.5.29
+  md5: 2a0eadad872978ae57e6756187625c00
+- version: 5.6.12
+  md5: 4578dee9d979114610a444bee263ed9b
+- version: 5.6.13
+  md5: 64d9a82068e3b0bbb16c261261391172
+- version: 5.4.44
+  md5: 25725eb0dff0d45351b01fb483709b8d
+- version: 5.4.45
+  md5: 185f67f1ca652b18bc0cca9d7edbde7c
