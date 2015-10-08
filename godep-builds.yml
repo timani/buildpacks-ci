@@ -1,3 +1,5 @@
 ---
-godep: []
+godep:
+- version: v14
+  sha256: ac7e78ade93e633e7ed628532bb8e650caba0c9c33af33581957f3382e2a772d
 
