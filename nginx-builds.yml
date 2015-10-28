@@ -1,16 +1,2 @@
 ---
-nginx:
-- version: 1.9.6
-  'gpg-rsa-key-id': A1C052F8
-  'gpg-signature': |
-    -----BEGIN PGP SIGNATURE-----
-    Version: GnuPG v2
-
-    iQEcBAABCAAGBQJWL4CEAAoJEFIKmZOhwFL4+m0H/0U6ZwRC8GfqNjzYJH5p9h9+
-    5uV/d72/s6lYlDmXIOuK2bUggTfhC3GCCgKMKEv4TAO7ML0RYOsNnTT/YIftEWOO
-    FEaXdDAmzGG7XimEnO8tCV0upFB7DI96B08GB6XyUPkKOCHHSH6s944dVSesbj04
-    lnH/h81X7wJXHm2V/pINiaoGZ61a0YAaCRiiC6axRyvAyiWOhHKxxdGdoS3mY4/1
-    mzukx1nVFGwiomY01Y5qYeHegkjc2fQReStNLG6L8Us45XNpmcPvrIgfYC/gWzrb
-    ZcqxmIbFB5RnMgizGGmht+xenEGqeA4Pk/Jz6ZO+6CuhBGu8knv7D4E+pOCrnMU=
-    =pDgT
-    -----END PGP SIGNATURE-----
+nginx: []
