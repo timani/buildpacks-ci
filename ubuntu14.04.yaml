@@ -1,1 +1,11 @@
 ---
+- 'USN-2821-1: GnuTLS vulnerability'
+- 'USN-2820-1: dpkg vulnerability'
+- 'USN-2815-1: libpng vulnerabilities'
+- 'USN-2814-1: NVIDIA graphics drivers vulnerability'
+- 'USN-2812-1: libxml2 vulnerabilities'
+- 'USN-2810-1: Kerberos vulnerabilities'
+- 'USN-2788-2: unzip regression'
+- 'USN-2788-1: unzip vulnerabilities'
+- 'USN-2787-1: audiofile vulnerability'
+- 'USN-2783-1: NTP vulnerabilities'
