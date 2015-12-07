@@ -1,4 +1,5 @@
 ---
+- 'USN-2830-1: OpenSSL vulnerabilities'
 - 'USN-2821-1: GnuTLS vulnerability'
 - 'USN-2820-1: dpkg vulnerability'
 - 'USN-2815-1: libpng vulnerabilities'
