@@ -1,2 +1,6 @@
 ---
-ruby: []
+ruby:
+- version: 2.1.8
+  sha256: afd832b8d5ecb2e3e1477ec6a9408fdf9898ee73e4c5df17a2b2cb36bd1c355d
+- version: 2.0.0-p648
+  sha256: 8690bd6b4949c333b3919755c4e48885dbfed6fd055fe9ef89930bde0d2376f8
