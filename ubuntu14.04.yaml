@@ -1,4 +1,6 @@
 ---
+- 'USN-2875-1: libxml2 vulnerabilities'
+- 'USN-2874-1: Bind vulnerability'
 - 'USN-2869-1: OpenSSH vulnerabilities'
 - 'USN-2865-1: GnuTLS vulnerability'
 - 'USN-2861-1: libpng vulnerabilities'
