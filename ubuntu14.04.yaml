@@ -1,4 +1,5 @@
 ---
+- 'USN-2879-1: rsync vulnerability'
 - 'USN-2875-1: libxml2 vulnerabilities'
 - 'USN-2874-1: Bind vulnerability'
 - 'USN-2869-1: OpenSSH vulnerabilities'
