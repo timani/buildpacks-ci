@@ -1,8 +1,6 @@
 ---
 jruby:
-  - version: 9.0.5.0_ruby-2.2.2
-    md5: 2e57e924c0b0fb1ad59734bc68796454
-  - version: 1.7.24_ruby-2.0.0
-    md5: c877b1479f51edd02ff0ce1e6b79ece7
-  - version: 1.7.24_ruby-1.9.3
-    md5: c877b1479f51edd02ff0ce1e6b79ece7
+- version: 1.7.24_ruby-2.0.0
+  md5: c877b1479f51edd02ff0ce1e6b79ece7
+- version: 1.7.24_ruby-1.9.3
+  md5: c877b1479f51edd02ff0ce1e6b79ece7
