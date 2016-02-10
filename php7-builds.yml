@@ -1,0 +1,4 @@
+---
+php7:
+- version: 7.0.3
+  sha256: 5521df8db153aba35c90cf1a1829106b6bbdac32425216d440f9cc29f00a7c08
