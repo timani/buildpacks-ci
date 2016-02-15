@@ -1,4 +1,6 @@
 ---
+- 'USN-2897-1: Nettle vulnerabilities'
+- 'USN-2896-1: Libgcrypt vulnerability'
 - 'USN-2882-1: curl vulnerability'
 - 'USN-2879-1: rsync vulnerability'
 - 'USN-2875-1: libxml2 vulnerabilities'
