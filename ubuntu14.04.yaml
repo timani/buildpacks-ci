@@ -1,4 +1,5 @@
 ---
+- 'USN-2900-1: GNU C Library vulnerability'
 - 'USN-2897-1: Nettle vulnerabilities'
 - 'USN-2896-1: Libgcrypt vulnerability'
 - 'USN-2882-1: curl vulnerability'
