@@ -1,4 +1,7 @@
 ---
+- 'USN-2913-3: OpenSSL update'
+- 'USN-2913-4: GnuTLS update'
+- 'USN-2913-1: ca-certificates update'
 - 'USN-2906-1: GNU cpio vulnerabilities'
 - 'USN-2902-1: graphite2 vulnerabilities'
 - 'USN-2900-1: GNU C Library vulnerability'
