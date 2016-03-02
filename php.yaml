@@ -2,7 +2,6 @@
 - php5_5_0
 - php4
 - php_ibase_before_split
-- php-7.0.4
 - php-7.0.4RC1
 - php-7.0.3
 - php-7.0.3RC1
@@ -72,6 +71,7 @@
 - php-5.6.0RC3
 - php-5.6.0RC2
 - php-5.6.0RC1
+- php-5.5.33
 - php-5.5.32
 - php-5.5.31
 - php-5.5.30
