@@ -1,6 +1,4 @@
 ---
 node:
-  - version: 0.12.11
-    sha256: e49049d82f2a11fa164549d907d4739fe1293d53c07f48bd70e1df237b238a68
-  - version: 0.10.43
-    sha256: c672452a61dd37cf2779bc158b65a5a22af343da19fec1cddf9bced382a2595a
+- version: 0.10.43
+  sha256: c672452a61dd37cf2779bc158b65a5a22af343da19fec1cddf9bced382a2595a
