@@ -1,6 +1,6 @@
 ---
 nginx:
-- version: 1.8.1
+- version: 1.9.12
   gpg-rsa-key-id: A1C052F8
   gpg-signature: ! '-----BEGIN PGP SIGNATURE-----
     Version: GnuPG v2
