@@ -1,2 +1,6 @@
 ---
-jruby: []
+jruby:
+- version: 1.7.25_ruby-1.9.3
+  md5: 87da98470ef2ca94569036bf7f537d0e
+- version: 1.7.25_ruby-2.0.0
+  md5: 87da98470ef2ca94569036bf7f537d0e
