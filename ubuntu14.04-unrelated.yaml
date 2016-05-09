@@ -1,4 +1,7 @@
 ---
+- 'USN-2970-1: Linux kernel (Vivid HWE) vulnerabilities'
+- 'USN-2969-1: Linux kernel (Utopic HWE) vulnerabilities'
+- 'USN-2968-1: Linux kernel vulnerabilities'
 - 'USN-2965-2: Linux kernel (Xenial HWE) vulnerabilities'
 - 'USN-2964-1: OpenJDK 7 vulnerabilities'
 - 'USN-2950-3: Samba regressions'
