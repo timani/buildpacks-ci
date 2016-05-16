@@ -1,4 +1,9 @@
 ---
+- 'USN-2979-2: Linux kernel (Xenial HWE) vulnerabilities'
+- 'USN-2978-2: Linux kernel (Wily HWE) vulnerabilities'
+- 'USN-2977-1: Linux kernel (Vivid HWE) vulnerability'
+- 'USN-2976-1: Linux kernel (Utopic HWE) vulnerability'
+- 'USN-2975-1: Linux kernel vulnerability'
 - 'USN-2974-1: QEMU vulnerabilities'
 - 'USN-2971-2: Linux kernel (Wily HWE) vulnerabilities'
 - 'USN-2970-1: Linux kernel (Vivid HWE) vulnerabilities'
