@@ -1,2 +1,4 @@
 ---
-godep: []
+godep:
+- version: v69
+  sha256: a3eb2a2458383ffcd3d0df4565911aa601cd3172546749a571888ef3b11e9a0e
