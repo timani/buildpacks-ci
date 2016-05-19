@@ -1,4 +1,7 @@
 ---
+- 'USN-2936-3: Firefox regression'
+- 'USN-2973-1: Thunderbird vulnerabilities'
+- 'USN-2960-1: Oxide vulnerabilities'
 - 'USN-2982-1: Libksba vulnerabilities'
 - 'USN-2979-2: Linux kernel (Xenial HWE) vulnerabilities'
 - 'USN-2978-2: Linux kernel (Wily HWE) vulnerabilities'
