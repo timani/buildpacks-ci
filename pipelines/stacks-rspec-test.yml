@@ -1,0 +1,211 @@
+---
+resources:
+  - name: monday-funday
+    type: cron
+    source:
+      expression: 0 5 * * 1
+      location: America/New_York
+  - name: buildpacks-ci
+    type: git
+    source:
+      uri: https://github.com/cloudfoundry/buildpacks-ci
+      branch: test-rspec
+  - name: stacks
+    type: git
+    source:
+      uri: git@github.com:cloudfoundry/stacks.git
+      branch: imagemagick
+      private_key: {{stacks-private-key}}
+  - name: stacks-release
+    type: git
+    source:
+      uri: git@github.com:pivotal-cf-experimental/stacks-release.git
+      branch: master
+      private_key: {{stacks-release-private-key}}
+  - name: stack-s3
+    type: s3
+    source:
+      bucket: pivotal-buildpacks
+      regexp: cflinuxfs2-(.*).tar.gz
+      access_key_id: {{pivotal-buildpacks-s3-access-key}}
+      secret_access_key: {{pivotal-buildpacks-s3-secret-key}}
+  - name: receipt-s3
+    type: s3
+    source:
+      bucket: pivotal-buildpacks
+      regexp: cflinuxfs2_receipt-(.*)
+      access_key_id: {{pivotal-buildpacks-s3-access-key}}
+      secret_access_key: {{pivotal-buildpacks-s3-secret-key}}
+  - name: version
+    type: semver
+    source:
+      bucket: pivotal-buildpacks
+      key: versions/stack
+      access_key_id: {{pivotal-buildpacks-s3-access-key}}
+      secret_access_key: {{pivotal-buildpacks-s3-secret-key}}
+  - name: cflinuxfs2-rootfs-release-version
+    type: semver
+    source:
+      bucket: pivotal-buildpacks
+      initial_version: 0.1.0-rc.1
+      key: versions/cflinuxfs2-rootfs-release
+      access_key_id: {{pivotal-buildpacks-s3-access-key}}
+      secret_access_key: {{pivotal-buildpacks-s3-secret-key}}
+  - name: deployments-buildpacks
+    type: git
+    source:
+      uri: git@github.com:pivotal-cf/deployments-buildpacks
+      private_key: {{deployments-private-key}}
+      branch: master
+  - name: stacks-cf-deployment
+    type: bosh-deployment
+    source:
+      target: https://stacks.buildpacks.ci.cf-app.com:25555
+      username: admin
+      password: {{bosh-lite-password}}
+      deployment: cf-warden
+      ignore_ssl: true
+  - name: diego-stacks-cf-deployment
+    type: bosh-deployment
+    source:
+      target: https://diego-stacks.buildpacks.ci.cf-app.com:25555
+      username: admin
+      password: {{bosh-lite-password}}
+      deployment: cf-warden
+      ignore_ssl: true
+  - name: diego-stacks-diego-deployment
+    type: bosh-deployment
+    source:
+      target: https://diego-stacks.buildpacks.ci.cf-app.com:25555
+      username: admin
+      password: {{bosh-lite-password}}
+      deployment: cf-warden-diego
+      ignore_ssl: true
+  - name: diego-stacks-rootfs-deployment
+    type: bosh-deployment
+    source:
+      target: https://diego-stacks.buildpacks.ci.cf-app.com:25555
+      username: admin
+      password: {{bosh-lite-password}}
+      deployment: rootfs-smoke-test
+      ignore_ssl: true
+  - name: bosh-lite
+    type: git
+    source:
+      uri: https://github.com/cloudfoundry/bosh-lite
+  - name: cflinuxfs2-rootfs-release
+    type: git
+    source:
+      uri: git@github.com:cloudfoundry/cflinuxfs2-rootfs-release.git
+      branch: master
+      private_key: {{cflinuxfs2-rootfs-private-key}}
+  - name: cf-release
+    type: git
+    source:
+      uri: https://github.com/cloudfoundry/cf-release
+      branch: develop
+  - name: diego-release
+    type: git
+    source:
+      uri: https://github.com/cloudfoundry-incubator/diego-release
+      branch: develop
+  - name: diego-bosh-release
+    type: bosh-io-release
+    tarball: true
+    source:
+      repository: cloudfoundry-incubator/diego-release
+  - name: etcd-bosh-release
+    type: bosh-io-release
+    tarball: true
+    source:
+      repository: cloudfoundry-incubator/etcd-release
+  - name: garden-linux-bosh-release
+    type: bosh-io-release
+    tarball: true
+    source:
+      repository: cloudfoundry-incubator/garden-linux-release
+  - name: cf-release-rc
+    type: git
+    source:
+      uri: https://github.com/cloudfoundry/cf-release
+      branch: release-candidate
+  - name: cf-release-develop
+    type: git
+    source:
+      uri: git@github.com:cloudfoundry/cf-release
+      branch: develop
+      private_key: {{cf-release-private-key}}
+  - name: lite-stemcell
+    type: bosh-io-stemcell
+    source:
+      name: bosh-warden-boshlite-ubuntu-trusty-go_agent
+  - name: docker-cflinuxfs2-rootfs
+    type: docker-image
+    source:
+      repository: cloudfoundry/cflinuxfs2
+      username: {{buildpacks-docker-username}}
+      password: {{buildpacks-docker-password}}
+      email: cf-buildpacks-eng@pivotal.io
+  - name: docker-cflinuxfs2-rootfs-tagged
+    type: docker-image
+    source:
+      repository: cloudfoundry/cflinuxfs2
+      username: {{buildpacks-docker-username}}
+      password: {{buildpacks-docker-password}}
+      email: cf-buildpacks-eng@pivotal.io
+  - name: stack-github-release
+    type: github-release
+    source:
+      drafts: true
+      user: cloudfoundry
+      repository: stacks
+      access_token: {{buildpacks-github-token}}
+  - name: cflinuxfs2-rootfs-github-release
+    type: github-release
+    source:
+      drafts: false
+      user: cloudfoundry
+      repository: cflinuxfs2-rootfs-release
+      access_token: {{buildpacks-github-token}}
+  - name: new-cves
+    type: git
+    source:
+      uri: git@github.com:cloudfoundry/buildpacks-ci.git
+      branch: new-cve-notifications
+      private_key: {{buildpacks-ci-binary-builds-private-key}}
+      paths: [ ubuntu14.04.yaml ]
+  - name: failure-alert
+    type: slack-notification
+    source:
+      url: {{concourse-job-failure-notifications-slack-webhook}}
+jobs:
+  - name: build-rootfs
+    serial: true
+    plan:
+      - aggregate:
+        - get: buildpacks-ci
+        - get: deployments-buildpacks
+        - get: new-cves
+      - aggregate:
+        - get: stacks
+        - get: version
+          params: { pre: rc }
+        - get: cflinuxfs2-rootfs-release-version
+          params: { pre: rc }
+      - do:
+        - task: make-rootfs
+          file: buildpacks-ci/tasks/make-rootfs.yml
+          privileged: true
+        - task: test-rootfs
+          file: buildpacks-ci/tasks/test-rootfs.yml
+          privileged: true
+        - task: test-rootfs
+          file: buildpacks-ci/tasks/test-rootfs.yml
+          privileged: true
+        on_failure:
+          put: failure-alert
+          params:
+            text: "stacks build-rootfs job on Concourse failed! \n Check: https://buildpacks.ci.cf-app.com/pipelines/stacks/jobs/build-rootfs"
+            channel: {{concourse-job-failure-notifications-slack-channel}}
+            username: concourse
+            icon_url: http://cl.ly/image/3e1h0H3H2s0P/concourse-logo.png
