@@ -1,4 +1,5 @@
 ---
+- 'USN-2994-1: libxml2 vulnerabilities'
 - 'USN-2990-1: ImageMagick vulnerabilities'
 - 'USN-2987-1: GD library vulnerabilities'
 - 'USN-2985-2: GNU C Library regression'
