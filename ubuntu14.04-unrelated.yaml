@@ -1,4 +1,8 @@
 ---
+- 'USN-3002-1: Linux kernel (Wily HWE) vulnerabilities'
+- 'USN-3001-1: Linux kernel (Vivid HWE) vulnerabilities'
+- 'USN-3000-1: Linux kernel (Utopic HWE) vulnerabilities'
+- 'USN-2999-1: Linux kernel vulnerability'
 - 'USN-2995-1: Squid vulnerabilities'
 - 'USN-2993-1: Firefox vulnerabilities'
 - 'USN-2992-1: Oxide vulnerabilities'
