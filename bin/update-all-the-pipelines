@@ -6,7 +6,7 @@ require 'yaml'
 raise '`brew install lastpass-cli` is required' if `which lpass` == ''
 
 flyrc  = YAML.load_file(File.expand_path('~/.flyrc'))
-target_name="buildpacks"
+target_name="buildpacks-azure"
 target = flyrc['targets'][target_name]
 concourse_url= target['api']
 
@@ -24,32 +24,37 @@ def set_pipeline(target_name:,name:, cmd:, load: [])
   "})
 end
 
-header('For standard pipelines')
-Dir['pipelines/*.yml'].each do |filename|
-  name = File.basename(filename, '.yml')
-  puts "   #{name} pipeline"
-  set_pipeline(target_name: target_name,name: name, cmd: "erb concourse_url=#{concourse_url} #{filename}")
-end
+# header('For standard pipelines')
+# Dir['pipelines/cf-release-azure.yml'].each do |filename|
+#   name = File.basename(filename, '.yml')
+#   puts "   #{name} pipeline"
+#   set_pipeline(target_name: target_name,name: name, cmd: "erb concourse_url=#{concourse_url} #{filename}")
+# end
 
-header('For bosh-lite pipelines')
-Dir['config/bosh-lite/*.yml'].each do |filename|
-  deployment_name = File.basename(filename, '.yml')
-  full_deployment_name = YAML.load_file(filename)['deployment-name']
-  matches = /(lts|edge)\-\d+(\-azure)?/.match(deployment_name)
-  puts deployment_name
-  if matches.nil?
-    puts 'Your config/bosh-lite/*.yml files must be named in the following manner: edge-1.yml, edge-2.yml, lts-1.yml, lts-2.yml, etc.'
-    exit 1
-  end
-  cf_version_type = matches[1]
-  puts "   #{deployment_name} bosh-lite"
-  set_pipeline(
-    target_name: target_name,
-    name: deployment_name,
-    cmd: "erb deployment_name=#{deployment_name} full_deployment_name=#{full_deployment_name} concourse_url=#{concourse_url} pipelines/templates/bosh-lite-cf-#{cf_version_type}.yml",
-    load: [filename]
-  )
-end
+# header('For bosh-lite pipelines')
+# Dir['config/bosh-lite/*.yml'].each do |filename|
+#   deployment_name = File.basename(filename, '.yml')
+#   full_deployment_name = YAML.load_file(filename)['deployment-name']
+#   matches = /(lts|edge)\-\d+\-?(azure)?/.match(deployment_name)
+#   puts deployment_name
+
+#   if matches.nil?
+#     puts 'Your config/bosh-lite/*.yml files must be named in the following manner: edge-1.yml, edge-2.yml, lts-1.yml, lts-2.yml, etc.'
+#     exit 1
+#   end
+#   cf_version_type = matches[1]
+#   iaas = matches[2]
+#   if iaas && deployment_name.include?(iaas)
+#     next unless concourse_url.include? iaas
+#   end
+#   puts "   #{deployment_name} bosh-lite"
+#   set_pipeline(
+#     target_name: target_name,
+#     name: deployment_name,
+#     cmd: "erb deployment_name=#{deployment_name} full_deployment_name=#{full_deployment_name} concourse_url=#{concourse_url} pipelines/templates/bosh-lite-cf-#{cf_version_type}.yml",
+#     load: [filename]
+#   )
+# end
 
 header('For buildpack pipelines')
 Dir['config/buildpack/*.yml'].each do |filename|
@@ -63,15 +68,15 @@ Dir['config/buildpack/*.yml'].each do |filename|
   )
 end
 
-header('For buildpack pull request pipelines')
-Dir['config/buildpack/*.yml'].each do |filename|
-  language = File.basename(filename, '.yml')
-  puts "   #{language} pull-request"
-  set_pipeline(
-    target_name: target_name,
-    name: "#{language}-pull-request",
-    cmd: "erb language=#{language} concourse_url=#{concourse_url} pipelines/templates/pull-request.yml"
-  )
-end
+# header('For buildpack pull request pipelines')
+# Dir['config/buildpack/*.yml'].each do |filename|
+#   language = File.basename(filename, '.yml')
+#   puts "   #{language} pull-request"
+#   set_pipeline(
+#     target_name: target_name,
+#     name: "#{language}-pull-request",
+#     cmd: "erb language=#{language} concourse_url=#{concourse_url} pipelines/templates/pull-request.yml"
+#   )
+# end
 
 puts 'Thanks, JT'

@@ -13,14 +13,14 @@ resources:
     type: pool
     source:
       branch: resource-pools
-      pool: cf-edge-environments
+      pool: cf-edge-azure-environments
       private_key: {{resource-pools-private-key}}
       uri: git@github.com:cloudfoundry/buildpacks-ci.git
   - name: cf-lts-environments
     type: pool
     source:
       branch: resource-pools
-      pool: cf-lts-environments
+      pool: cf-lts-azure-environments
       private_key: {{resource-pools-private-key}}
       uri: git@github.com:cloudfoundry/buildpacks-ci.git
   - name: compile-extensions
@@ -89,59 +89,6 @@ resources:
     source:
       url: {{concourse-job-failure-notifications-slack-webhook}}
 jobs:
-  <% if language == "php" %>
-  - name: ensure-manifest-has-modules
-    serial: true
-    plan:
-      - get: buildpacks-ci
-      - get: buildpack
-        trigger: true
-      - task: load-modules
-        config:
-          platform: linux
-          image: docker:///cfbuildpacks/ci
-          inputs:
-            - name: buildpacks-ci
-            - name: buildpack
-          outputs:
-            - name: updated-buildpack
-          run :
-            path: bash
-            args:
-              - -c
-              - "cd buildpack && ./bin/populate-modules-in-manifest && (git commit -am 'Updated manifest with supported PHP modules' || true) && cd - && rsync -a buildpack/ updated-buildpack"
-      - put: buildpack
-        params:
-          repository: updated-buildpack
-          rebase: true
-  <% end %>
-  - name: detect-new-buildpack-and-upload-artifacts
-    serial: true
-    plan:
-      - aggregate:
-        - get: buildpacks-ci
-        - get: buildpack
-          resource: buildpack-master
-          trigger: true
-      - do:
-        - task: detect-and-upload
-          file: buildpacks-ci/tasks/detect-and-upload.yml
-          privileged: true
-        - put: pivotal-buildpack
-          params:
-            from: buildpack-artifacts/.*_buildpack-v(.*).zip
-            to: /experimental-buildpacks/<%= language %>/
-        - put: pivotal-buildpack-cached
-          params:
-            from: buildpack-artifacts/.*_buildpack-cached-v(.*).zip
-            to: /experimental-buildpacks/<%= language %>/
-        on_failure:
-          put: failure-alert
-          params:
-            text: "<%= language %>-buildpack detect-new-buildpack-and-upload-artifacts job on Concourse failed! \n Check: https://buildpacks.ci.cf-app.com/pipelines/<%= language %>-buildpack/jobs/detect-new-buildpack-and-upload-artifacts"
-            channel: {{concourse-job-failure-notifications-slack-channel}}
-            username: concourse
-            icon_url: http://cl.ly/image/3e1h0H3H2s0P/concourse-logo.png
   - name: specs-edge-master
     serial: true
     plan:
@@ -152,16 +99,13 @@ jobs:
       - aggregate:
         - get: buildpacks-ci
         - get: buildpack
-          passed: [ "detect-new-buildpack-and-upload-artifacts" ]
           resource: buildpack-master
           trigger: true
         - get: pivotal-buildpacks
           resource: pivotal-buildpack
-          passed: [ "detect-new-buildpack-and-upload-artifacts" ]
           trigger: true
         - get: pivotal-buildpacks-cached
           resource: pivotal-buildpack-cached
-          passed: [ "detect-new-buildpack-and-upload-artifacts" ]
           trigger: true
       - do:
         - task: rspec
@@ -193,16 +137,13 @@ jobs:
       - aggregate:
         - get: buildpacks-ci
         - get: buildpack
-          passed: [ "detect-new-buildpack-and-upload-artifacts" ]
           resource: buildpack-master
           trigger: true
         - get: pivotal-buildpacks
           resource: pivotal-buildpack
-          passed: [ "detect-new-buildpack-and-upload-artifacts" ]
           trigger: true
         - get: pivotal-buildpacks-cached
           resource: pivotal-buildpack-cached
-          passed: [ "detect-new-buildpack-and-upload-artifacts" ]
           trigger: true
       - do:
         - task: rspec
@@ -223,82 +164,6 @@ jobs:
             channel: {{concourse-job-failure-notifications-slack-channel}}
             username: concourse
             icon_url: http://cl.ly/image/3e1h0H3H2s0P/concourse-logo.png
-  - name: buildpack-release
-    serial: true
-    plan:
-      - aggregate:
-        - get: buildpacks-ci
-        - get: pivotal-buildpacks-cached
-          resource: pivotal-buildpack-cached
-          passed: [ "specs-lts-master", "specs-edge-master"]
-          trigger: true
-        - get: buildpack
-          passed: [ "specs-lts-master", "specs-edge-master" ]
-          resource: buildpack-master
-          trigger: true
-      - task: check tag not already added
-        file: buildpacks-ci/tasks/check-tag-not-already-added.yml
-      - put: buildpack-master
-        params:
-          repository: buildpack
-          tag: buildpack/VERSION
-          tag_prefix: v
-  - name: buildpack-to-github
-    serial: true
-    plan:
-      - aggregate:
-        - get: buildpacks-ci
-        - get: pivotal-buildpacks-cached
-          resource: pivotal-buildpack-cached
-          passed: [ buildpack-release ]
-        - get: buildpack
-          resource: buildpack-master
-          passed: [ buildpack-release ]
-        - get: buildpack-checksums
-      - task: finalize-buildpack
-        file: buildpacks-ci/tasks/finalize-buildpack.yml
-        privileged: true
-      - task: commit-shas
-        file: buildpacks-ci/tasks/commit-shas.yml
-        privileged: true
-      - put: buildpack-checksums
-        params:
-          repository: sha-artifacts
-          rebase: true
-      - put: buildpack-github-release
-        params:
-          name: buildpack-artifacts/tag
-          tag: buildpack-artifacts/tag
-          body: buildpack-artifacts/RECENT_CHANGES
-          globs:
-            - buildpack-artifacts/*_buildpack-cached-v*.zip
-            - buildpack-artifacts/*_buildpack-cached-v*.zip.SHA256SUM.txt
-  - name: buildpack-to-pivnet
-    serial: true
-    plan:
-      - aggregate:
-        - get: buildpacks-ci
-        - get: buildpacks-pivnet-uploader
-        - get: pivotal-buildpacks-cached
-          resource: pivotal-buildpack-cached
-          passed: [ buildpack-release ]
-        - get: buildpack
-          resource: buildpack-master
-          passed: [ buildpack-release ]
-      - task: finalize-buildpack
-        file: buildpacks-ci/tasks/finalize-buildpack.yml
-        privileged: true
-      - task: upload to pivnet
-        file: buildpacks-ci/tasks/upload-to-pivnet.yml
-        params:
-          AWS_ACCESS_KEY_ID: {{pivnet-access-key}}
-          AWS_SECRET_ACCESS_KEY: {{pivnet-secret-key}}
-          PIVNET_S3_BUCKET: pivotalnetwork
-          PIVNET_ADDRESS: https://network.pivotal.io/
-          PIVNET_APIKEY: {{pivnet-apikey}}
-          PIVNET_PRODUCT_NAME: {{pivnet-product-name}}
-          GITHUB_URL: https://github.com/cloudfoundry/<%= language %>-buildpack
-        privileged: true
   - name: specs-edge-develop
     serial: true
     plan:
@@ -378,50 +243,3 @@ jobs:
           put: cf-lts-environments
           params:
             release: cf-environments
-<% unless language == "binary" %>
-  - name: update-compile-extensions
-    serial: true
-    plan:
-      - aggregate:
-        - get: buildpacks-ci
-        - get: compile-extensions
-          trigger: true
-        - get: buildpack
-      - task: update-compile-extensions
-        file: buildpacks-ci/tasks/update-compile-extensions.yml
-        privileged: true
-      - put: buildpack
-        params:
-          repository: buildpack-artifacts
-          rebase: true
-<% end %>
-  - name: update-buildpack-packager
-    serial: true
-    plan:
-      - aggregate:
-        - get: buildpacks-ci
-        - get: buildpack-packager
-          trigger: true
-        - get: buildpack
-      - task: update-buildpack-packager
-        file: buildpacks-ci/tasks/update-buildpack-packager.yml
-        privileged: true
-      - put: buildpack
-        params:
-          repository: buildpack-artifacts
-          rebase: true
-  - name: update-machete
-    serial: true
-    plan:
-      - aggregate:
-        - get: buildpacks-ci
-        - get: machete
-          trigger: true
-        - get: buildpack
-      - task: update-machete
-        file: buildpacks-ci/tasks/update-machete.yml
-        privileged: true
-      - put: buildpack
-        params:
-          repository: buildpack-artifacts
-          rebase: true

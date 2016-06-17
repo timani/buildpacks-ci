@@ -82,8 +82,6 @@ jobs:
     serial_groups: [ deploy ]
     serial: true
     plan:
-      - get: nightly-trigger
-        trigger: true
       - put: resource-pools
         params:
           claim: {{deployment-name}}
