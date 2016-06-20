@@ -50,7 +50,14 @@ until $(curl -k --output /dev/null --silent --head --fail https://$DEPLOYMENT_NA
     sleep 10
 done
 
-bosh -u admin -p admin -t $DEPLOYMENT_NAME.cf-app.com create user admin $PASSWORD
+# Destroy deployment if we are not able to connect and update the user
+if bosh -u admin -p admin -t trash.cf-app.com create user admin $PASSWORD; then
+  echo "Depolyment working!"
+else
+  if [ "$IAAS" = "aws" ]; then
+    vagrant destroy -f
+  fi
+fi
 
 if test -n "$(find . -maxdepth 1 -name '*.yml' -print -quit)"; then
   rm -f *.yml
