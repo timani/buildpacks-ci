@@ -1,4 +1,6 @@
 ---
+- 'USN-3010-1: Expat vulnerabilities'
+- 'USN-3012-1: Wget vulnerability'
 - 'USN-2994-1: libxml2 vulnerabilities'
 - 'USN-2990-1: ImageMagick vulnerabilities'
 - 'USN-2987-1: GD library vulnerabilities'
