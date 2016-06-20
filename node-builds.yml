@@ -1,2 +1,4 @@
 ---
-node: []
+node:
+  - version: 6.2.2
+    sha256: b6baee57a0ede496c7c7765001f7495ad74c8dfe8c34f1a6fb2cd5d8d526ffce
